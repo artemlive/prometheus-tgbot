@@ -34,10 +34,11 @@ func findUserState(id int64) *UserState {
 }
 
 func initUserStates(){
-	us := UserState{
-		ID: 146508662,
-		CurMenu: newMenu(globalChan),
+	for chatId := range cfg.AuthorizedChatIds{
+		UserStates = append(UserStates, UserState{
+			ID: int64(chatId),
+			CurMenu: newMenu(globalChan),
+		})
 	}
-	UserStates = append(UserStates, us)
 
 }
