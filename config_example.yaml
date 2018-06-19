@@ -1,0 +1,5 @@
+telegram_token: "my_token"
+
+template_path: "template.tmpl"
+time_zone: "Europe/Rome"
+split_token: "|"

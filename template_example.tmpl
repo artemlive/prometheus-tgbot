@@ -1,0 +1,14 @@
+{{if eq .Status "firing"}}
+        {{if eq .Status "firing"}}
+                Status: <b>{{.Status | str_UpperCase}} :fire:</b>
+        {{end -}}
+{{end -}}
+{{if eq .Status "resolved"}}
+Status: <b>{{.Status | str_UpperCase}} :white_check_mark::beer:</b>
+{{end -}}
+{{ range $label := .GroupLabels }}
+<b>List of affected services for {{ $label }}:</b>
+{{ end }}
+{{ range $val := .Alerts -}}
+         Alert: <a href="http://localhost:9095/#/alerts">{{ index $val.Annotations "description" }}</a>
+{{ end}}
