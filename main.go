@@ -181,9 +181,8 @@ func main() {
 
 func checkAuthorized(chatId int64) bool {
 	// if authorized chats property exists and it's value exists
-	authorizedChatIds := []int64{146508662}
-	if len(authorizedChatIds) > 0 {
-		for _, iter := range authorizedChatIds {
+	if len(cfg.AuthorizedChatIds) > 0 {
+		for _, iter := range cfg.AuthorizedChatIds {
 			//if chatId found in authorized list, return true
 			if iter == chatId {
 				log.Printf("%d authorized", chatId)
@@ -199,5 +198,6 @@ func checkAuthorized(chatId int64) bool {
 	log.Printf("%d not authorized, breaking requests", chatId)
 	return false
 }
+
 
 
