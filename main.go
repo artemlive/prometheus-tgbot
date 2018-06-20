@@ -32,7 +32,7 @@ func handleTextMessage(update *tgbotapi.Update){
 
 func telegramBot(bot *tgbotapi.BotAPI) {
 	go userStateChanged()
-	initUserStates()
+
 	u := tgbotapi.NewUpdate(0)
 	u.Timeout = 60
 	updates, err := bot.GetUpdatesChan(u)
@@ -140,11 +140,11 @@ func main() {
 	if err != nil {
 		log.Fatalf("Error parsing configuration file: %v", err)
 	}
-
+	fmt.Printf("%+v", cfg)
 	if *template_path != "" {
 		cfg.TemplatePath = *template_path
 	}
-
+	UserStates = initUserStates()
 	bot_tmp, err := tgbotapi.NewBotAPI(cfg.TelegramToken)
 	if err != nil {
 		log.Fatal(err)

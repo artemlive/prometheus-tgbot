@@ -39,6 +39,7 @@ func (m *Menu) alertmanagerMenu(params *ActionParams) {
 	state := findUserState(params.update.Message.Chat.ID)
 	state.CurMenu = newAlertmanagerMenu(globalChan)
 	state.Action = ""
+	setUserState(state)
 	globalChan <- params.update
 }
 
@@ -70,5 +71,6 @@ func (m *Menu) Draw(params *ActionParams){
 	state := findUserState(params.update.Message.Chat.ID)
 	state.PrevMenu = state.CurMenu
 	state.Action = "handlemain"
+	setUserState(state)
 	params.bot.Send(msg)
 }

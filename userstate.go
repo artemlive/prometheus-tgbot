@@ -10,11 +10,8 @@ type UserState struct {
 	UpChannel chan int
 }
 
-func userStateChanger(menu *Menuer, state string){
 
-}
-
-func userStateChanged(){
+func userStateChanged() {
 	//read from the channel in a loop
 	for v := range globalChan {
 		fmt.Printf("!!! User state changed\n")
@@ -25,20 +22,30 @@ func userStateChanged(){
 }
 
 func findUserState(id int64) *UserState {
-	for index, state := range UserStates{
+	for _, state := range UserStates {
 		if state.ID == id{
-			return &UserStates[index]
+			return &state
 		}
 	}
 	return &UserState{}
 }
 
-func initUserStates(){
-	for chatId := range cfg.AuthorizedChatIds{
-		UserStates = append(UserStates, UserState{
+func initUserStates() []UserState{
+	var us = []UserState{}
+	for _, chatId := range cfg.AuthorizedChatIds{
+		us = append(us, UserState{
 			ID: int64(chatId),
 			CurMenu: newMenu(globalChan),
 		})
 	}
+	return us
 
+}
+
+func setUserState(us *UserState){
+	for i, state := range UserStates {
+		if state.ID == us.ID{
+			UserStates[i] = *us
+		}
+	}
 }

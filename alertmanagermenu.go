@@ -34,6 +34,7 @@ func handleCurrentMenu(params *ActionParams){
 		if state.PrevMenu != Menuer(nil){
 			state.CurMenu = state.PrevMenu
 		}
+		setUserState(state)
 		globalChan <- params.update
 
 	}
@@ -62,5 +63,6 @@ func (m *AlertmanagerMenu) Draw(params *ActionParams){
 	msg.ReplyMarkup = keyboard
 	state := findUserState(params.update.Message.Chat.ID)
 	state.Action = "handlealertmanager"
+	setUserState(state)
 	params.bot.Send(msg)
 }
